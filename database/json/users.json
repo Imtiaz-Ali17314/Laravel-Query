@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Imtiaz",
+        "age": 20,
+        "email": "imtiaz@gmail.com",
+        "city": "Gilgit"
+    },
+    {
+        "name": "wajid",
+        "age": 29,
+        "email": "wajid@gmail.com",
+        "city": "Gilgit"
+    },
+    {
+        "name": "sajid",
+        "age": 26,
+        "email": "sajid@gmail.com",
+        "city": "Baltistan"
+    },
+    {
+        "name": "Shakeel",
+        "age": 20,
+        "email": "shakeel@gmail.com",
+        "city": "Karachi"
+    },
+    {
+        "name": "Muzaffar",
+        "age": 24,
+        "email": "muzafar@gmail.com",
+        "city": "Sindh"
+    },
+    {
+        "name": "Basit",
+        "age": 22,
+        "email": "basit@gmail.com",
+        "city": "Bahawalpure"
+    },
+    {
+        "name": "Zeeshan",
+        "age": 27,
+        "email": "zeeshan@gmail.com",
+        "city": "Sarghoda"
+    },
+    {
+        "name": "Mussawir",
+        "age": 23,
+        "email": "musawir@gmail.com",
+        "city": "Kohat"
+    },
+    {
+        "name": "Zaheer",
+        "age": 30,
+        "email": "zaheer@gmail.com",
+        "city": "Karachi"
+    },
+    {
+        "name": "Rasib",
+        "age": 17,
+        "email": "rasib@gmail.com",
+        "city": "Lahore"
+    },
+    {
+        "name": "Kamran",
+        "age": 19,
+        "email": "kamran@gmail.com",
+        "city": "Baltistan"
+    },
+    {
+        "name": "Ghulam Abbas",
+        "age": 20,
+        "email": "ghab@gmail.com",
+        "city": "Baltistan"
+    },
+    {
+        "name": "Shahid",
+        "age": 28,
+        "email": "shahid@gmail.com",
+        "city": "Gilgit"
+    },
+    {
+        "name": "Naqi",
+        "age": 23,
+        "email": "naqi@gmail.com",
+        "city": "Gujranwala"
+    },
+    {
+        "name": "Hamza",
+        "age": 18,
+        "email": "hamza@gmail.com",
+        "city": "Islamabad"
+    },
+    {
+        "name": "Faizan",
+        "age": 22,
+        "email": "faizan@gmail.com",
+        "city": "Lahore"
+    }
+]
