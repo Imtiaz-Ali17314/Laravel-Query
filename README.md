@@ -1,61 +1,279 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Fluent Query & CRUD Demo
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive, production-ready showcase of advanced database operations in **Laravel 12** and **PHP 8.2+** utilizing Laravel's Fluent Query Builder (`DB` facade) rather than standard Eloquent ORM. This application implements structured CRUD processes, custom form request validations, relational joins, automated JSON-driven seeding, and dynamic paginated layouts inside Blade templates.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Technology Stack & Dependencies
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Laravel 12](https://img.shields.io/badge/Laravel_12-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![PHP 8.2+](https://img.shields.io/badge/PHP_8.2+-777BB4?style=flat-square&logo=php&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![SQLite/MySQL](https://img.shields.io/badge/Database-SQLite%20%7C%20MySQL-blue?style=flat-square)
+![Composer](https://img.shields.io/badge/Composer-Dependency_Manager-orange?style=flat-square&logo=composer&logoColor=white)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Key Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*   **Fluent Query Builder Engine**: Operates CRUD operations directly via the `DB::table` facade, illustrating high-performance database manipulation without ORM overhead.
+*   **Encapsulated Request Validation**: Utilizes a customized `UserRequest` class to enforce strict user inputs (e.g., minimum age of 18, numeric limits, standard emails) before database insertion.
+*   **Relational Joins & Selection**: Demonstrates advanced database joins (`students` table joined to the `cities` table on `city_id`), specific column extraction, sorting (`orderBy`), and pagination.
+*   **Dynamic Client-Side Pagination**: Implements optimized database-level records splitting (`paginate(4)` and `paginate(5)` views), serving navigation links automatically without client load lags.
+*   **Automated JSON Seeding**: Implements custom seeders (`userSeeder`) that read raw data from JSON resources (`database/json/users.json`) to seed relational database tables.
+*   **Cascading Schema Migrations**: Employs structured schemas including a cascade-on-delete relationship between students and cities using standard foreign-key declarations.
+*   **Blade Layout Interface**: Implements clear, reusable template components for user roster views, profiling, addition, and update dashboards.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📐 Application Architecture & Data Flow
 
-## Laravel Sponsors
+The data flow within the application follows a modern Model-View-Controller pattern, leveraging custom requests for validation and the Fluent Query Builder for database interaction:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```mermaid
+graph TD
+    Client[Client Browser] -->|HTTP Request| Router[web.php Route Engine]
+    Router -->|Validates Inputs| FormRequest[UserRequest Validation Class]
+    FormRequest -->|Passes Validation| Controller[UserController / StudentController]
+    Controller -->|Fluent Queries| DBFacade[DB Facade / Query Builder]
+    DBFacade <-->|Port 3306 or SQLite file| Database[(Database Layer)]
+    Controller -->|Injects Data Collection| View[Blade Template Layouts]
+    View -->|HTML Response| Client
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 📂 Repository File Directory
 
-## Contributing
+```
+Laravel-Query/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Controller.php        # Core base controller
+│   │   │   ├── StudentController.php # Joins students & cities with pagination
+│   │   │   └── UserController.php    # Custom user CRUD using DB facade
+│   │   └── Requests/
+│   │       └── UserRequest.php       # Enforces form rules, attributes & limits
+│   └── Models/
+│       ├── student.php               # Student model definition
+│       └── User.php                  # User model definition
+├── config/                           # Standard application configuration scripts
+├── database/
+│   ├── json/
+│   │   └── users.json                # Raw data source for database seeding
+│   ├── migrations/                   # Schema migrations (users, cities, students, sessions)
+│   └── seeders/                      # Seed scripts (userSeeder, StudentSeeder, CitySeeder)
+├── resources/
+│   ├── views/                        # Blade visual presentation layouts
+│   │   ├── addUser.blade.php         # Renders the addition form with validation errors
+│   │   ├── allUsers.blade.php        # Paginated users grid with delete/update routing
+│   │   ├── studentList.blade.php     # Joined list outputting student and city metadata
+│   │   ├── updateUser.blade.php      # Renders individual records modify dashboard
+│   │   └── user.blade.php            # Outputs single profile details
+│   └── css/                          # Application CSS resources
+├── routes/
+│   ├── web.php                       # Primary routing maps (routes group controllers)
+│   └── console.php                   # Command-line configuration settings
+├── composer.json                     # PHP package configurations
+└── vite.config.js                    # Bundler configuration file
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 📝 Key Source Code Showcases
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Relational Joins & Pagination ([StudentController.php](file:///d:/for%20CV/My%20learnings/Laravel-Query/app/Http/Controllers/StudentController.php))
+Renders dynamic database joining, attribute selecting, and pagination limiting to 5 records per page:
+```php
+namespace App\Http\Controllers;
 
-## Security Vulnerabilities
+use Illuminate\Support\Facades\DB;
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+class StudentController extends Controller
+{
+    public function showStudents(){
+        $students = DB::table('students')
+                ->join('cities' , 'students.city_id' , '=' , 'cities.id')
+                ->select('students.id' ,'students.name' ,'students.email' , 'cities.city_name')
+                ->orderBy('students.id' , 'asc')
+                ->paginate(5);
 
-## License
+        return view('studentList' , ['data' => $students]);
+    }
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 2. Encapsulated Input Validation ([UserRequest.php](file:///d:/for%20CV/My%20learnings/Laravel-Query/app/Http/Requests/UserRequest.php))
+Secures the database by defining strict rules, renaming parameter labels for user-friendly error views, and enforcing a stop-on-first-failure flag:
+```php
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class UserRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'username' => 'required',
+            'userage' =>  'required|numeric|min:18',
+            'useremail' => 'required|email',
+            'usercity' =>  'required'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'username' => 'User Name',
+            'userage' =>  'User Age',
+            'useremail' => 'User Email',
+            'usercity' =>  'User City'
+        ];
+    }
+
+    protected $stopOnFirstFailure = true;
+}
+```
+
+### 3. Fluent CRUD Actions ([UserController.php](file:///d:/for%20CV/My%20learnings/Laravel-Query/app/Http/Controllers/UserController.php))
+Performs secure row queries, updates, and deletes directly via query parameters:
+```php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
+
+class UserController extends Controller
+{
+    public function showUsers(){
+        $users = DB::table('users')->paginate(4);
+        return view('allUsers' , ['data' => $users]);
+    }
+
+    public function insertUser(UserRequest $req){
+        $inserted = DB::table('users')->insert([
+            'name' => $req->username,
+            'age' =>  $req->userage,
+            'email' =>  $req->useremail,
+            'city' =>  $req->usercity
+        ]);
+
+        if($inserted){
+            return redirect()->route('home');
+        }
+    }
+
+    public function updateUser(Request $req, $id){
+        $updated = DB::table('users')
+                    ->where('id', '=', $id)
+                    ->update([
+                        'name' => $req->username,
+                        'age' =>  $req->userage,
+                        'email' => $req->useremail,
+                        'city' =>  $req->usercity
+                    ]);
+
+        if($updated){
+            return redirect()->route('home');
+        }
+    }
+
+    public function deleteUser(string $id){
+        $deleted = DB::table('users')->where('id', '=', $id)->delete();
+        if($deleted){
+            return redirect()->route('home');
+        }
+    }
+}
+```
+
+---
+
+## 💾 Database Schema Migration Structure
+
+The system uses three primary tables configured through migration files:
+
+### 1. `cities` Table
+Acts as a reference master ledger for regional city locations:
+*   `id` (Primary Key)
+*   `city_name` (String, 30 chars)
+
+### 2. `students` Table
+Stores student profiles with cascading foreign key referencing:
+*   `id` (Primary Key)
+*   `name` (String, 30 chars)
+*   `email` (String, 20 chars, nullable, unique)
+*   `city_id` (Foreign Key -> references `cities.id`, deletes and updates cascade)
+
+### 3. `users` Table
+Handles standard user logs:
+*   `id` (Primary Key)
+*   `name` (String, 30 chars)
+*   `age` (Integer)
+*   `email` (String, 20 chars, nullable, unique)
+*   `city` (String, 15 chars)
+
+---
+
+## 🚀 Setup & Execution Guide
+
+### Prerequisites
+Make sure the following are installed on your system:
+*   **PHP** version 8.2 or higher
+*   **Composer** (PHP dependency manager)
+*   **Node.js** (for asset compilation via Vite)
+*   An active database server (**MySQL / MariaDB**) or **SQLite** (configured inside your `.env` file).
+
+### Installation & Run Steps
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/your-username/Laravel-Query.git
+    cd Laravel-Query
+    ```
+2.  **Install Composer Dependencies**:
+    ```bash
+    composer install
+    ```
+3.  **Install Node Modules**:
+    ```bash
+    npm install
+    ```
+4.  **Create Environment Configuration**:
+    Copy the example file to `.env`:
+    ```bash
+    cp .env.example .env
+    ```
+5.  **Generate Secure Application Key**:
+    ```php
+    php artisan key:generate
+    ```
+6.  **Configure Database**:
+    Open the `.env` file and set up your preferred database connections (e.g., MySQL or SQLite). For a lightweight SQLite setup:
+    ```env
+    DB_CONNECTION=sqlite
+    # DB_DATABASE=database/database.sqlite (will be auto-created by Artisan if not present)
+    ```
+7.  **Run Database Migrations and JSON Seeds**:
+    Run migrations and trigger seeders to import cities, students, and users:
+    ```bash
+    php artisan migrate --seed
+    ```
+8.  **Run Asset Compilation**:
+    Launch Vite bundler:
+    ```bash
+    npm run dev
+    ```
+9.  **Start Development Server**:
+    Run Laravel's internal server:
+    ```bash
+    php artisan serve
+    ```
+    Access the local application in your browser at `http://127.0.0.1:8000`.
