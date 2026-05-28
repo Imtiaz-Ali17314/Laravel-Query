@@ -235,7 +235,7 @@ Make sure the following are installed on your system:
 ### Installation & Run Steps
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/Laravel-Query.git
+    git clone https://github.com/Imtiaz-Ali17314/Laravel-Query.git
     cd Laravel-Query
     ```
 2.  **Install Composer Dependencies**:
